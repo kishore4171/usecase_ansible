@@ -11,6 +11,7 @@
   become: yes
   vars:
     folder_path: /home/ansible/nodesetup
+    template_path: /home/ansible/usecase_ansible
   tasks:
   - name: create a directory to place the shell file
   # create a directory(nodesetup) if it doesn't exist
@@ -32,6 +33,6 @@
   - name: copy the sample nodejs code to check the applciaiton running on target node
     template:
       src: /templates/hello.js.j2
-      dest: "{{ folder_path }}/templates/hello.js"
+      dest: "{{ template_path }}/templates/hello.js"
       
     
