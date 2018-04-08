@@ -1,0 +1,37 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: update the apt packages
+    apt:
+      update_cache: yes
+  
+# below are the settings for nodejs or appserver specific settings 
+- hosts: Appserver
+  become: yes
+  vars:
+    folder_path: /home/ansible/nodesetup
+  tasks:
+  - name: create a directory to place the shell file
+  # create a directory(nodesetup) if it doesn't exist
+  # installation steps are taken from https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-16-04
+    file:
+      path: "{{ folder_path }}"
+      state: directory
+      mode: 0755
+  #- name: change to the nodesetup directory
+
+  - name: Download nodejs package setup
+    command: curl -sL https://deb.nodesource.com/setup_6.x -o {{ folder_path }}/nodesource_setup.sh
+  - name: Execute downlaoded nodesource_setup.sh
+    shell: sudo bash {{ folder_path }}/nodesource_setup.sh
+  - name: install nodejs package now
+    apt:
+      name: nodejs
+      state: present
+  - name: copy the sample nodejs code to check the applciaiton running on target node
+    template:
+      src: /templates/hello.js.j2
+      dest: {{ folder_path }}/templates/hello.js
+      
+    
