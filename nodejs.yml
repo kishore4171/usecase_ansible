@@ -32,7 +32,7 @@
       state: present
   - name: copy the sample nodejs code to check the applciaiton running on target node
     template:
-      src: /templates/hello.js.j2
+      src: "/templates/hello.js.j2"
       dest: "{{ template_path }}/templates/hello.js"
       
     
