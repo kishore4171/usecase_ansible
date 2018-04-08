@@ -50,7 +50,7 @@
   - name: install nginix
     apt:
       name: nginx
-      status: present
+      state: present
   - name: copy default file
     template:
       src: "templates/default.j2"
