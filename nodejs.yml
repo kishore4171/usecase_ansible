@@ -41,7 +41,7 @@
   - name: start node.js avi_application
     command: "pm2 start {{ folder_path }}/hello.js"
 
-- hosts:
+- hosts: Appserver
   become: yes
   vars:
     webserver_dns_name: "ec2-52-15-221-106.us-east-2.compute.amazonaws.com"
