@@ -34,5 +34,35 @@
     template:
       src: "templates/hello.js.j2"
       dest: "{{ folder_path }}/hello.js"
-      
+  - name: install pm2
+    npm:
+      name: pm2
+      global: y
+  - name: start node.js avi_application
+    command: "pm2 start {{ folder_path }}/hello.js"
+
+- hosts:
+  become: yes
+  vars:
+    webserver_dns_name: "ec2-52-15-221-106.us-east-2.compute.amazonaws.com"
+    appserver_ip: 172.31.39.65
+  tasks:
+  - name: install nginix
+    apt:
+      name: nginx
+      status: present
+  - name: copy default file
+    template:
+      src: "templates/default.j2"
+      dest: "/etc/nginx/sites-available/default"
+    notify:
+      - restart Nginx
+  handlers:
+  - name: restart Nginx
+    service:
+      name: nginx
+      state: restarted
+
+
+
     
