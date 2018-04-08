@@ -32,6 +32,6 @@
   - name: copy the sample nodejs code to check the applciaiton running on target node
     template:
       src: /templates/hello.js.j2
-      dest: {{ folder_path }}/templates/hello.js
+      dest: "{{ folder_path }}"/templates/hello.js
       
     
